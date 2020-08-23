@@ -16,11 +16,6 @@ import javax.ws.rs.core.Response;
 
 @Path("hello")
 public class HelloService {
-    private static Set<User> users = new LinkedHashSet<>();
-    static {
-        users.add(new User("John", 18));
-        users.add(new User("Mary", 19));
-    }
     
     @Path("helloworld")
     @GET
@@ -43,62 +38,5 @@ public class HelloService {
         return "Product id = " + id;
     }
     
-    @Path("getUser/{name}")
-    @GET
-    @Produces("application/json")
-    public Response getUser(@PathParam("name") String name) {
-        Optional<User> optUser = users.stream().filter(u -> u.getName().equals(name)).findAny();
-        return Response.ok()
-                .header("status", "ok")
-                .encoding("UTF-8")
-                .entity(optUser.isPresent() ? optUser.get() : "no data")
-                .build();
-    }
-    
-    @Path("getUsers")
-    @GET
-    @Produces("application/json")
-    public Set<User> getUsers() {
-        return users;
-    }
-    
-    
-    /*
-        前端傳入
-        {
-            "age": 18,
-            "name": "John"
-        }
-    */
-    @Path("addUser")
-    @POST
-    @Produces("text/plain")
-    @Consumes("application/json")
-    public String addUser(User user) {
-        users.add(user);
-        return "add: " + user;
-    }
-    
-    @Path("updateUser/{name}")
-    @PUT
-    @Produces("text/plain")
-    @Consumes("application/json")
-    public String updateUser(@PathParam("name") String name, User user) {
-        Optional<User> optUser = users.stream().filter(u -> u.getName().equals(name)).findAny();
-        if(optUser.isPresent()) {
-            optUser.get().setAge(user.getAge());
-            return "ok update: " + user;
-        } else {
-            return "error update: " + user;
-        }
-    }
-    
-    @Path("deleteUser/{name}")
-    @DELETE
-    @Produces("text/plain")
-    public String deleteUser(@PathParam("name") String name) {
-        boolean success = users.removeIf(u -> u.getName().equals(name));
-        return success ? "ok" : "error";
-    }
     
 }
