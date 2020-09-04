@@ -8,3 +8,13 @@ CREATE TABLE Book (
    ts timestamp default current_timestamp,
    PRIMARY KEY (Id)
 );
+
+<script type="text/javascript">
+    function get_action(form) {
+        form.action = form_action;
+    }
+</script>
+
+<form onsubmit="get_action(this);">
+    ...
+</form>
