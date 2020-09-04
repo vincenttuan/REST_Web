@@ -19,14 +19,23 @@
         </style>
         <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
         <script>
-            function change(id) {
+            var id = 0;
+            function get(id) {
                 alert("id:" + id);
             }
             $(document).ready(function () {
                 $(".add-row").click(function () {
+                    id = ++id;
                     var name = $("#name").val();
                     var email = $("#email").val();
-                    var markup = "<tr><td><input type='checkbox' name='record' class='update-row' title='123' onchange='change(123)'></td><td>" + name + "</td><td>" + email + "</td></tr>";
+                    var markup = "<tr>" +
+                                    "<td>" +
+                                        "<input type='checkbox' name='record'>" +
+                                    "</td>" +
+                                    "<td><a href='javascript:get(" + id + ")'>" + id + "</a></td>" +
+                                    "<td>" + name + "</td>" +
+                                    "<td>" + email + "</td>" +
+                                    "</tr>";
                     $("table tbody").append(markup);
                 });
 
@@ -38,12 +47,7 @@
                         }
                     });
                 });
-
-                $(".update-row").click(function () {
-                    alert($(this));
-                    //alert($(this).attr('title'));
-
-                });
+                
             });
         </script>
     </head>
@@ -57,21 +61,12 @@
             <thead>
                 <tr>
                     <th>Select</th>
+                    <th>Id</th>
                     <th>Name</th>
                     <th>Email</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td><input type="checkbox" name="record" class="update-row" title="678"></td>
-                    <td>Peter Parker</td>
-                    <td>peterparker@mail.com</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="record" class="update-row" title="123"></td>
-                    <td>Peter Parker</td>
-                    <td>peterparker@mail.com</td>
-                </tr>            
+            <tbody>           
             </tbody>
         </table>
         <button type="button" class="delete-row">Delete Row</button>
