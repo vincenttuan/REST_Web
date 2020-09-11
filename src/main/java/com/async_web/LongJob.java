@@ -12,10 +12,13 @@ class LongJob implements Runnable {
     public void run(){
         try {
             // 等待10秒鐘，用來模擬任務所需要的時間
-            Thread.sleep(10000);
             PrintWriter out = ctx.getResponse().getWriter();
-            out.println("任務處理完畢的時間：" + new Date() + ".<p>");
-            out.flush();
+            for(int i=1;i<=10;i++) {
+                Thread.sleep(2000);
+                out.println("任務處理完畢的時間：" + new Date() + ".<p>");
+                out.flush();
+            }
+            out.println("任務結束.<p>");
             ctx.complete(); // 任務完成
         } catch (Exception e) {
             e.printStackTrace();
