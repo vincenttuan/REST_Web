@@ -8,8 +8,9 @@
             function async() {
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function () {
-                    console.log(this.responseText);
-                    document.getElementById("result").innerHTML = this.responseText + '(' + this.readyState + ', ' + this.status + ')';
+                    data = this.responseText; 
+                    console.log(data);
+                    document.getElementById("result").innerHTML = data + '(' + this.readyState + ', ' + this.status + ')';
                 };
                 xhttp.open("GET", "/REST_Web/asyncLongJob", true);
                 xhttp.send();
