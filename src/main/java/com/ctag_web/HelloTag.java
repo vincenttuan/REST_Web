@@ -2,6 +2,7 @@ package com.ctag_web;
 
 import java.io.PrintWriter;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
 
@@ -27,13 +28,13 @@ public class HelloTag implements Tag {
     @Override
     public int doStartTag() throws JspException {
         try {
-            PrintWriter out = pageContext.getResponse().getWriter();
+            JspWriter out = pageContext.getOut();
             out.print("Hello Tag");
         } catch (Exception e) {
         }
         
         
-        return Tag.SKIP_BODY;
+        return Tag.EVAL_BODY_INCLUDE;
     }
 
     @Override
